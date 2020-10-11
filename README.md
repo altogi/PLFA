@@ -3,6 +3,28 @@
 ## Summary:
 A novel method for the identification and temporal tracking of particle clusters in turbulent particle-laden flows is presented. It makes use of density-based clustering algorithms such as DBSCAN and OPTICS in order to discern regions of high particle concentrations, labeled as clusters, from those with lesser particles. The key features of the proposed methodology are its ability for identification and tracking of particle clusters in 3D and 2D, its robustness to particle number density, the absence of independent user defined parameters, and its computational efficiency for large data sets. The flexibility on the data dimensionality and in part the reduced computational cost are rooted on the treatment of 3D particle positions as multiple 2D projections into equidistant parallel planes. Clustering algorithms are used on each plane to identify clouds of particles conforming independent clusters, and the topology of each cluster is then condensed into boundary particles and a limited set of representative internal particles that define the 2D skeleton. This reduced set of particles is used to reconstruct 3D topologies and to track the cluster evolution in time at consecutive time steps. Cluster topologies are in good agreement with those obtained using more traditional Voronoi based analysis, with the new proposed method showing a significant reduction in computational cost. 
 
+## Workflow:
+
+For the analysis of a dataset concerning a single time instant, the workflow is as shown below:
+
+![image info](./Images/workflow.png)
+
+Once several time instants have been processed, one can correlate adjacent time instants as follows:
+
+![image info](./Images/workflow2.png)
+
+## Some images of the process:
+
+![image info](./Images/easy0184.png)
+
+![image info](./Images/boundariesPaper.png)
+
+![image info](./Images/skeletonPaper.png)
+
+![image info](./Images/connectivitiesPaper.png)
+
+![image info](./Images/temporalPaper.png)
+
 ## Code Structure:
 * **OpenSliceVTK.py:** This script simply loads a .VTK file containing three-dimensional particle positions, projects them into a specified number of planes of constant Z, and outputs the resulting projected positions into a .CSV file.
 * **clusteringAnalysis.py:** For a single .CSV file containing projected particle positions obtained with OpenSliceVTK.py, this script invokes the necessary classes of other scripts in order to perform all of the steps involved in the identification of three-dimensional clusters parting from the simplified dataset. This script invokes clustering3D.py, boundaryFinder.py , eulerianApproach.py , clusterConnect.py , and relabeller.py.
